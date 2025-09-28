@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>班級正向鼓勵牆</title>
+    <title>班級正向鼓勵牆 (含朗讀功能)</title>
     <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入 Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- 引入 Heroicons (此處為 ionicons，也可運作) -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- 自訂樣式與動畫 -->
     <style>
         body {
@@ -56,14 +53,19 @@
                 <div class="lg:sticky lg:top-8 space-y-8">
                     <!-- 輸入區域卡片 -->
                     <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
-                        <h1 class="text-3xl font-bold text-cyan-600 text-center mb-2">班級正向鼓勵牆</h1>
-                        <p class="text-slate-500 text-center mb-6">發現同學的優點，寫下你的鼓勵，讓我們的教室更溫暖！</p>
+                        <h1 class="text-3xl font-bold text-cyan-600 text-center">班級正向鼓勵牆</h1>
+                        <p class="text-slate-500 text-center mb-6 mt-2">發現同學的優點，寫下你的鼓勵，讓我們的教室更溫暖！</p>
                         
                         <form id="wish-form" class="space-y-4">
                             <!-- SEL 行為選擇 -->
                             <div>
-                                <label class="font-bold text-slate-600">1. 選擇你想鼓勵的正向行為：</label>
-                                <div id="sel-options" class="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-2">
+                                <div class="flex items-center gap-1 mb-2">
+                                     <label class="font-bold text-slate-600">1. 選擇你想鼓勵的正向行為：</label>
+                                     <button type="button" title="朗讀" class="read-title-btn p-1 rounded-full hover:bg-cyan-100 active:bg-cyan-200 transition-colors" data-read-text="選擇你想鼓勵的正向行為">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-600 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                                     </button>
+                                </div>
+                                <div id="sel-options" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
                                     <!-- SEL 選項會動態生成於此 -->
                                 </div>
                                 <input type="hidden" id="sel-type-input" name="sel-type">
@@ -72,18 +74,33 @@
                             <!-- 姓名與鼓勵對象 -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="encouraged-student" class="font-bold text-slate-600">2. 我想鼓勵的同學：</label>
+                                    <div class="flex items-center gap-1">
+                                        <label for="encouraged-student" class="font-bold text-slate-600">2. 我想鼓勵的同學：</label>
+                                        <button type="button" title="朗讀" class="read-title-btn p-1 rounded-full hover:bg-cyan-100 active:bg-cyan-200 transition-colors" data-read-text="我想鼓勵的同學">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-600 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                                        </button>
+                                    </div>
                                     <input type="text" id="encouraged-student" class="mt-1 w-full p-2 bg-blue-50 border border-blue-200 rounded-md focus:ring-2 focus:ring-cyan-500" placeholder="填寫姓名或座號">
                                 </div>
                                 <div>
-                                    <label for="student-name" class="font-bold text-slate-600">3. 你的名字/座號：</label>
+                                    <div class="flex items-center gap-1">
+                                        <label for="student-name" class="font-bold text-slate-600">3. 你的名字/座號：</label>
+                                        <button type="button" title="朗讀" class="read-title-btn p-1 rounded-full hover:bg-cyan-100 active:bg-cyan-200 transition-colors" data-read-text="你的名字或座號">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-600 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                                        </button>
+                                    </div>
                                     <input type="text" id="student-name" class="mt-1 w-full p-2 bg-blue-50 border border-blue-200 rounded-md focus:ring-2 focus:ring-cyan-500" placeholder="也可以不具名或填寫「老師」">
                                 </div>
                             </div>
 
                             <!-- 鼓勵內容 -->
                             <div>
-                                <label for="wish-input" class="font-bold text-slate-600">4. 寫下你的鼓勵：</label>
+                                <div class="flex items-center gap-1">
+                                     <label for="wish-input" class="font-bold text-slate-600">4. 寫下你的鼓勵：</label>
+                                     <button type="button" title="朗讀" class="read-title-btn p-1 rounded-full hover:bg-cyan-100 active:bg-cyan-200 transition-colors" data-read-text="寫下你的鼓勵">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-600 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                                     </button>
+                                </div>
                                 <textarea id="wish-input" rows="3" class="mt-1 w-full p-3 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-cyan-500 placeholder-slate-400" placeholder="詳細描述你看到的事情..."></textarea>
                             </div>
                             
@@ -112,7 +129,7 @@
 
             <!-- 右側欄位：鼓勵牆 -->
             <div class="lg:col-span-3">
-                <h2 class="text-2xl font-bold text-center text-cyan-700 mb-6 lg:mt-0">大家的鼓勵 ✨</h2>
+                 <h2 class="text-2xl font-bold text-center text-cyan-700 mb-6">大家的鼓勵 ✨</h2>
                 <div id="encouragement-wall" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <!-- 祝福卡片將會被動態加入這裡 -->
                 </div>
@@ -177,12 +194,12 @@
         // 初始化 Firebase
         async function initializeFirebase() {
             try {
-                // 您的 Firebase 專案設定
+                // !重要! 請將此處替換為您自己的 Firebase 專案設定
                 const firebaseConfig = {
                   apiKey: "AIzaSyAVdeDokiGdR-hmnGDFYEaxrjXuOe_PftI",
                   authDomain: "positivewall-e4553.firebaseapp.com",
                   projectId: "positivewall-e4553",
-                  storageBucket: "positivewall-e4553.firebasestorage.app",
+                  storageBucket: "positivewall-e4553.appspot.com",
                   messagingSenderId: "33992353011",
                   appId: "1:33992353011:web:5e9b2dca3f74c2c5d3c386",
                   measurementId: "G-82ZPG0QV9F"
@@ -195,20 +212,16 @@
                 onAuthStateChanged(auth, async (user) => {
                     if (!user) {
                         try {
-                            // 因為是獨立網頁，我們總是使用匿名登入
                             await signInAnonymously(auth);
                         } catch (error) {
                             console.error("Authentication Error:", error);
-                            // 提供更明確的錯誤訊息給使用者
                             if (error.code === 'auth/configuration-not-found') {
-                                // 顯示教學 Modal
                                 const modal = document.getElementById('auth-error-modal');
                                 modal.classList.remove('hidden');
                                 document.getElementById('close-modal-button').addEventListener('click', () => {
                                     modal.classList.add('hidden');
                                 });
                                 
-                                // 停用表單功能
                                 const submitButton = wishForm.querySelector('button[type="submit"]');
                                 wishForm.querySelectorAll('input, textarea, button').forEach(el => el.disabled = true);
                                 submitButton.classList.add('bg-gray-400', 'cursor-not-allowed');
@@ -221,12 +234,12 @@
                             }
                         }
                     } else {
-                        // 使用者已登入，開始監聽資料
                         listenForEncouragements();
                     }
                 });
 
-            } catch (error) {
+            } catch (error)
+                 {
                 console.error("Firebase initialization failed:", error);
                 errorMessage.textContent = "載入失敗，請重新整理頁面。";
             }
@@ -234,7 +247,6 @@
 
         // 從 Firestore 監聽即時資料
         function listenForEncouragements() {
-            // 使用更簡潔的資料庫路徑
             const encouragementsCol = collection(db, 'encouragements');
             const q = query(encouragementsCol);
             
@@ -246,17 +258,14 @@
                     encouragements.push({ id: doc.id, ...doc.data() });
                 });
                 
-                // 在客戶端進行排序，將最新的排在最前面
                 encouragements.sort((a, b) => {
                     const timeA = a.createdAt?.toDate() || 0;
                     const timeB = b.createdAt?.toDate() || 0;
                     return timeB - timeA;
                 });
 
-                // 清空並重新渲染牆面
                 wall.innerHTML = '';
                 encouragements.forEach((data, index) => {
-                    // 只有在不是第一次載入時，才對最新的卡片加上動畫
                     const isNew = !isFirstLoad && index === 0;
                     const card = createWishCard(data, isNew);
                     if (card) {
@@ -268,7 +277,7 @@
             });
         }
 
-        // 動態生成 UI 元素 (行為按鈕、範例)
+        // 動態生成 UI 元素
         function initializeUI() {
             selBehaviors.forEach(behavior => {
                 const button = document.createElement('button');
@@ -278,7 +287,6 @@
                 button.innerHTML = `${behavior.icon} ${behavior.name}`;
                 selOptionsContainer.appendChild(button);
 
-                // 更新：加入朗讀按鈕
                 const exampleDiv = document.createElement('div');
                 exampleDiv.className = `p-3 rounded-md ${behavior.color}`;
                 exampleDiv.innerHTML = `
@@ -303,6 +311,19 @@
             const button = e.target.closest('button');
             if (!button) return;
             const selectedId = button.dataset.id;
+            
+            const behavior = selBehaviors.find(b => b.id === selectedId);
+            if (!behavior) return;
+
+            // 朗讀行為類別名稱
+            if ('speechSynthesis' in window) {
+                const textToRead = behavior.name;
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToRead);
+                utterance.lang = 'zh-TW';
+                window.speechSynthesis.speak(utterance);
+            }
+
             selTypeInput.value = selectedId;
             document.querySelectorAll('#sel-options button').forEach(btn => {
                 const behavior = selBehaviors.find(b => b.id === btn.dataset.id);
@@ -323,30 +344,37 @@
             card.className = `rounded-xl shadow-lg overflow-hidden transition-transform hover:-translate-y-1 ${isNew ? 'animate-pop-in' : ''}`;
             const fromName = data.from.trim() === '' ? '一位神秘的同學' : data.from;
 
-            // 新增：處理日期顯示
             let dateString = '';
             if (data.createdAt && typeof data.createdAt.toDate === 'function') {
-                dateString = data.createdAt.toDate().toLocaleDateString('zh-TW'); // 格式化為 YYYY/M/D
+                dateString = data.createdAt.toDate().toLocaleDateString('zh-TW');
             }
 
+            // 新增朗讀按鈕到卡片底部
             card.innerHTML = `
                 <div class="p-4 ${behavior.color} flex items-center">
                     ${behavior.icon}
                     <h3 class="font-bold text-lg ${behavior.textColor}">${behavior.name}</h3>
                 </div>
                 <div class="p-5 bg-white space-y-3">
-                    <p class="text-slate-500">給 <span class="font-bold text-slate-700">${data.to}</span>：</p>
-                    <p class="text-slate-800 text-lg">“${data.message}”</p>
+                    <p class="text-slate-500">給 <span class="font-bold text-slate-700 card-to">${data.to}</span>：</p>
+                    <p class="text-slate-800 text-lg card-message">“${data.message}”</p>
                     <div class="flex justify-between items-center text-sm mt-4 pt-3 border-t">
-                        <p class="text-slate-400">${dateString}</p>
-                        <p class="text-right text-slate-500 font-medium">— ${fromName}</p>
+                        <div class="flex items-center gap-2">
+                            <p class="text-slate-400">${dateString}</p>
+                            <button title="朗讀此則鼓勵" class="read-card-btn p-1 rounded-full hover:bg-cyan-100 active:bg-cyan-200 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-600 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="text-right text-slate-500 font-medium card-from">— ${fromName}</p>
                     </div>
                 </div>
             `;
             return card;
         }
 
-        // 表單提交事件 (儲存到 Firestore)
+        // 表單提交事件
         wishForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             errorMessage.textContent = '';
@@ -363,14 +391,12 @@
             if (!wishData.message) { errorMessage.textContent = '請寫下你的鼓勵內容！'; return; }
             
             try {
-                // 使用更簡潔的資料庫路徑
                 const encouragementsCol = collection(db, 'encouragements');
                 await addDoc(encouragementsCol, {
                     ...wishData,
-                    createdAt: Timestamp.now() // 加上伺服器時間戳
+                    createdAt: Timestamp.now()
                 });
 
-                // 成功後重置表單
                 wishForm.reset();
                 selTypeInput.value = '';
                 document.querySelectorAll('#sel-options button').forEach(btn => {
@@ -383,41 +409,79 @@
             }
         });
         
-        // 當 DOM 載入完成後，初始化 UI 和 Firebase
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeUI();
-            initializeFirebase();
-
-            // 更新：處理朗讀按鈕點擊事件
+        // 全域的朗讀事件監聽器
+        function setupReadAloudListeners() {
+            // 朗讀範例
             examplesContainer.addEventListener('click', (e) => {
                 const button = e.target.closest('.read-aloud-btn');
                 if (!button) return;
 
-                const container = button.parentElement;
+                const container = button.closest('.p-3');
                 const titleText = container.querySelector('.font-bold')?.textContent.trim();
                 let exampleText = container.querySelector('.example-text')?.textContent.trim();
                 
                 if (titleText && exampleText && 'speechSynthesis' in window) {
-                    // 移除 "範例：" 前綴
                     exampleText = exampleText.replace('範例：', '').trim();
-                    
-                    // 將 [同學名字] 替換成 "瑪莉"
                     const modifiedExampleText = exampleText.replace(/\[同學名字\]/g, '瑪莉');
-
-                    // 組合要朗讀的完整句子
                     const textToRead = `${titleText}。範例：${modifiedExampleText}`;
                     
-                    // 停止目前所有正在朗讀的語音
                     window.speechSynthesis.cancel();
-                    
                     const utterance = new SpeechSynthesisUtterance(textToRead);
-                    utterance.lang = 'zh-TW'; // 指定語言以獲得更準確的發音
+                    utterance.lang = 'zh-TW';
                     window.speechSynthesis.speak(utterance);
-                } else {
-                    console.error("此瀏覽器不支援語音合成或找不到文字。");
                 }
             });
+
+            // 朗讀鼓勵卡片
+            wall.addEventListener('click', (e) => {
+                const button = e.target.closest('.read-card-btn');
+                if (!button) return;
+
+                const card = button.closest('.rounded-xl');
+                const toText = card.querySelector('.card-to')?.textContent.trim();
+                const messageText = card.querySelector('.card-message')?.textContent.replace(/“|”/g, '').trim();
+                let fromText = card.querySelector('.card-from')?.textContent.replace('—', '').trim();
+                
+                if (fromText === '一位神秘的同學') {
+                    fromText = '來自一位神秘的同學';
+                } else {
+                    fromText = `來自 ${fromText}`;
+                }
+
+                if (toText && messageText && fromText && 'speechSynthesis' in window) {
+                    const textToRead = `給 ${toText} 的鼓勵：${messageText}。${fromText}。`;
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(textToRead);
+                    utterance.lang = 'zh-TW';
+                    window.speechSynthesis.speak(utterance);
+                }
+            });
+
+            // 朗讀主要標題
+            document.body.addEventListener('click', (e) => {
+                const button = e.target.closest('.read-title-btn');
+                if (!button) return;
+
+                const textToRead = button.dataset.readText;
+                
+                if (textToRead && 'speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(textToRead);
+                    utterance.lang = 'zh-TW';
+                    window.speechSynthesis.speak(utterance);
+                }
+            });
+        }
+
+        // 當 DOM 載入完成後
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeUI();
+            initializeFirebase();
+            setupReadAloudListeners();
         });
     </script>
 </body>
 </html>
+
+
+
